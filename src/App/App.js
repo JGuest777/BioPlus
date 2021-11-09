@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardMedia, CardActionArea, Button } from "@mui/material";
+import { Button, Fab } from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useTrail, animated as a } from "react-spring";
 import axios from "axios";
+import FlipCard from "../Components/Card";
+import ScrollTop from "../Components/ScrollTop";
 import loading from "./loading.gif";
 import "./App.scss";
 
-function App() {
+function App(props) {
   const [memes, setMemes] = useState([]);
   const [error, setError] = useState(false);
 
@@ -28,24 +31,6 @@ function App() {
     from: { marginLeft: -20, opacity: 0, transform: "translate3d(0,-40px,0)" },
     to: { marginLeft: 0, opacity: 1, transform: "translate3d(0,0px,0)" },
   });
-
-  const colorPicker = () => {
-    const colors = [
-      "#E0BBE4",
-      "#957DAD",
-      "#D291BC",
-      "#FEC8D8",
-      "#FFDFD3",
-      "#D5D6EA",
-      "#F6F6EB",
-      "#D7ECD9",
-      "#F5D5CB",
-      "#F6ECF5",
-      "#F3DDF2",
-    ];
-    const selctedColor = colors[Math.floor(Math.random() * colors.length)];
-    return selctedColor;
-  };
 
   return (
     <div className="container">
@@ -77,19 +62,7 @@ function App() {
                   style={props}
                   className="grid__item"
                 >
-                  <Card
-                    style={{ backgroundColor: `${colorPicker()}` }}
-                    className="card"
-                  >
-                    <CardActionArea className="card__action">
-                      <CardMedia
-                        className="card__img"
-                        component="img"
-                        image={memes[index]?.url}
-                        alt={memes[index]?.name}
-                      />
-                    </CardActionArea>
-                  </Card>
+                  <FlipCard memes={memes} index={index} />
                 </a.div>
               ))}
             </div>
@@ -111,6 +84,20 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <ScrollTop {...props}>
+        <Fab
+          style={{
+            borderRadius: "3px",
+            backgroundColor: "black",
+            opacity: "0.3",
+          }}
+          size="small"
+          aria-label="scroll back to top"
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </div>
   );
 }
