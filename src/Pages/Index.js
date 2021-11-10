@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Fab } from "@mui/material";
+import { Fab } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useTrail, animated as a } from "react-spring";
 import axios from "axios";
+import Header from "../Components/Header";
+import Error from "../Components/Error";
 import FlipCard from "../Components/Card";
+import Footer from "../Components/Footer";
 import ScrollTop from "../Components/ScrollTop";
-import loading from "./loading.gif";
-import "./App.scss";
+import loading from "../Images/loading.gif";
 
 function App(props) {
   const [memes, setMemes] = useState([]);
@@ -15,6 +17,7 @@ function App(props) {
   const fetchMemes = async () => {
     try {
       const res = await axios.get("https://api.imgflip.com/get_memes");
+      console.log(res);
       // no limit query available on API
       const limitedRes = res?.data?.data?.memes.slice(0, 15);
       setMemes(limitedRes);
@@ -35,22 +38,10 @@ function App(props) {
   return (
     <div className="container">
       {error ? (
-        <div className="wrapper">
-          <p className="error">
-            Error fetching your memes, please try again later
-          </p>
-          <p>:(</p>
-          <Button
-            variant="contained"
-            onClick={() => window.location.reload(false)}
-          >
-            Reload
-          </Button>
-        </div>
+        <Error />
       ) : (
         <div className="wrapper">
-          <h1 id="back-to-top-anchor">Portfolio Grid 4</h1>
-          <p>This grid shows the items pages in a popup</p>
+          <Header />
 
           {!memes ? (
             <img alt="loading" src={loading} />
@@ -70,20 +61,7 @@ function App(props) {
         </div>
       )}
       <div className="parallax" />
-      <footer>
-        <div className="footer-container">
-          <div className="footer-inner">
-            <p>
-              &copy; 2021 <span>BioPlus Theme</span> by James Guest
-            </p>
-            <ul>
-              <li>Home</li>
-              <li>About Us</li>
-              <li>Contact</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       <ScrollTop {...props}>
         <Fab
