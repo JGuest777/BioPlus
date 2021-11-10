@@ -49,7 +49,7 @@ function App(props) {
         </div>
       ) : (
         <div className="wrapper">
-          <h1>Portfolio Grid 4</h1>
+          <h1 id="back-to-top-anchor">Portfolio Grid 4</h1>
           <p>This grid shows the items pages in a popup</p>
 
           {!memes ? (
@@ -90,7 +90,8 @@ function App(props) {
           style={{
             borderRadius: "3px",
             backgroundColor: "black",
-            opacity: "0.3",
+            opacity: "0.7",
+            color: "#fff",
           }}
           size="small"
           aria-label="scroll back to top"

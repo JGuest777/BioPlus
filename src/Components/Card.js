@@ -12,7 +12,10 @@ function FlipCard({ memes, index }) {
         style={{ backgroundColor: `${colorPicker()}` }}
         className="card"
       >
-        <CardActionArea className="card__action">
+        <CardActionArea
+          onClick={() => console.log("modal")}
+          className="card__action"
+        >
           {flip ? (
             <p>{memes[index]?.name}</p>
           ) : (
